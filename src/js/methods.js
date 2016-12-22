@@ -93,10 +93,23 @@
 
       $item = this.$items.eq(index);
       $img = $item.find(SELECTOR_IMG);
+
       url = $img.data('originalUrl');
       alt = $img.attr('alt');
 
-      this.$image = $image = $('<img src="' + url + '" alt="' + alt + '">');
+      //视频播放
+      if($img.attr('video-original-url')!="")
+      {
+        var videoUrl=$img.attr('video-original-url');
+        this.$image = $image = $('<video preload loop controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
+        var videoHeight=window.innerHeight-125;
+        this.$image.css("height",videoHeight)
+      }
+      else
+      {
+        this.$image = $image = $('<img src="' + url + '" alt="' + alt + '">');  
+      }
+      
 
       if (this.isViewed) {
         this.$items.eq(this.index).removeClass(CLASS_ACTIVE);
@@ -114,6 +127,11 @@
 
       // Clear title
       $title.empty();
+      //如果是视频  无法回调view方法 ，显示title,此处设置下video的title
+      if($img.attr('video-original-url')!="")
+      {
+        $title.html(alt)
+      }
 
       // Generate title after viewed
       this.$element.one(EVENT_VIEWED, $.proxy(function () {

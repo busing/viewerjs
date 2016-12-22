@@ -1,11 +1,11 @@
 /*!
- * Viewer v0.5.1
+ * Viewer v@VERSION
  * https://github.com/fengyuanchen/viewer
  *
- * Copyright (c) 2015-2016 Fengyuan Chen
+ * Copyright (c) 2015-@YEAR Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2016-03-11T07:57:59.486Z
+ * Date: @DATE
  */
 
 (function (factory) {
@@ -118,12 +118,13 @@
     var scaleX = options.scaleX;
     var scaleY = options.scaleY;
 
-    if (isNumber(rotate)) {
-      transforms.push('rotate(' + rotate + 'deg)');
-    }
-
+    // Scale should come first before rotate
     if (isNumber(scaleX) && isNumber(scaleY)) {
       transforms.push('scale(' + scaleX + ',' + scaleY + ')');
+    }
+
+    if (isNumber(rotate)) {
+      transforms.push('rotate(' + rotate + 'deg)');
     }
 
     return transforms.length ? transforms.join(' ') : 'none';
@@ -368,7 +369,7 @@
         on(EVENT_WHEEL, $.proxy(this.wheel, this));
 
       this.$canvas.on(EVENT_MOUSEDOWN, $.proxy(this.mousedown, this));
-
+      
       $document.
         on(EVENT_MOUSEMOVE, (this._mousemove = proxy(this.mousemove, this))).
         on(EVENT_MOUSEUP, (this._mouseup = proxy(this.mouseup, this))).
@@ -450,6 +451,8 @@
 
       this.$images.each(function (i) {
         var src = this.src;
+        var video = this.attributes["video"]==undefined?"":this.attributes["video"].nodeValue;
+        this.video=video;
         var alt = this.alt || getImageName(src);
         var url = options.url;
 
@@ -470,6 +473,7 @@
               ' data-action="view"' +
               ' data-index="' +  i + '"' +
               ' data-original-url="' +  (url || src) + '"' +
+              ' video-original-url="' +  (video) + '"' +
               ' alt="' +  alt + '"' +
             '>' +
           '</li>'
@@ -605,6 +609,12 @@
       var $target = $(e.target);
       var action = $target.data('action');
       var image = this.image;
+
+      //点击图片空白之外 关闭图片
+      if($target[0] && $target[0].className=="viewer-canvas")
+      {
+          action='mix';
+      }
 
       switch (action) {
         case 'mix':
@@ -886,13 +896,13 @@
       var action = options.movable ? 'move' : false;
       var touchesLength;
 
-      if (!this.isViewed) {
+      //当前元素是视频，忽略幻灯片播放场景，允许switch
+      if (!this.isViewed && touches && touches[0].target.tagName!="VIDEO") {
         return;
       }
 
       if (touches) {
         touchesLength = touches.length;
-
         if (touchesLength > 1) {
           if (options.zoomable && touchesLength === 2) {
             e = touches[1];
@@ -912,7 +922,6 @@
       }
 
       if (action) {
-        event.preventDefault();
         this.action = action;
 
         // IE8  has `event.pageX/Y`, but not `event.originalEvent.pageX/Y`
@@ -930,8 +939,8 @@
       var touches = originalEvent && originalEvent.touches;
       var e = event;
       var touchesLength;
-
-      if (!this.isViewed) {
+      //当前元素是视频，忽略幻灯片播放场景，允许switch
+      if (!this.isViewed && touches && touches[0].target.tagName!="VIDEO") {
         return;
       }
 
@@ -969,8 +978,6 @@
       var action = this.action;
 
       if (action) {
-        event.preventDefault();
-
         if (action === 'move' && this.options.transition) {
           this.$image.addClass(CLASS_TRANSITION);
         }
@@ -1074,10 +1081,23 @@
 
       $item = this.$items.eq(index);
       $img = $item.find(SELECTOR_IMG);
+
       url = $img.data('originalUrl');
       alt = $img.attr('alt');
 
-      this.$image = $image = $('<img src="' + url + '" alt="' + alt + '">');
+      //视频播放
+      if($img.attr('video-original-url')!="")
+      {
+        var videoUrl=$img.attr('video-original-url');
+        this.$image = $image = $('<video preload loop controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
+        var videoHeight=window.innerHeight-125;
+        this.$image.css("height",videoHeight)
+      }
+      else
+      {
+        this.$image = $image = $('<img src="' + url + '" alt="' + alt + '">');  
+      }
+      
 
       if (this.isViewed) {
         this.$items.eq(this.index).removeClass(CLASS_ACTIVE);
@@ -1095,6 +1115,11 @@
 
       // Clear title
       $title.empty();
+      //如果是视频  无法回调view方法 ，显示title,此处设置下video的title
+      if($img.attr('video-original-url')!="")
+      {
+        $title.html(alt)
+      }
 
       // Generate title after viewed
       this.$element.one(EVENT_VIEWED, $.proxy(function () {
@@ -1658,7 +1683,6 @@
       this.isVisible = true;
       this.render();
       this.bind();
-
       if ($.isFunction(options.shown)) {
         this.$element.one(EVENT_SHOWN, options.shown);
       }
@@ -1722,7 +1746,6 @@
     change: function (event) {
       var offsetX = this.endX - this.startX;
       var offsetY = this.endY - this.startY;
-
       switch (this.action) {
 
         // Move the current image
@@ -1750,7 +1773,6 @@
 
         case 'switch':
           this.action = 'switched';
-
           if (abs(offsetX) > abs(offsetY)) {
             if (offsetX > 1) {
               this.prev();
@@ -1772,7 +1794,12 @@
     isSwitchable: function () {
       var image = this.image;
       var viewer = this.viewer;
-
+      //视频 不用判断图片被放大到全屏幕的情况
+      if(this.$image[0].tagName=="VIDEO")
+      {
+        return true;
+      }
+      //判断图片是否是全屏状态，如果是不允许
       return (image.left >= 0 && image.top >= 0 && image.width <= viewer.width &&
         image.height <= viewer.height);
     }
@@ -1928,3 +1955,5 @@
   };
 
 });
+
+//# sourceMappingURL=viewer.js.map

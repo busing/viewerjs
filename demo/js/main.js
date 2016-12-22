@@ -7,6 +7,7 @@ $(function () {
   var $toggles = $('.docs-toggles');
   var $buttons = $('.docs-buttons');
   var options = {
+        toolbar: 2,
         // inline: true,
         url: 'data-original',
         build: function (e) {

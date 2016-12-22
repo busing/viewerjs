@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var connect = require('gulp-connect');
 var plugins = require('gulp-load-plugins')();
 var pkg = require('./package');
 var now = new Date();
@@ -221,4 +222,12 @@ gulp.task('watch', function () {
   gulp.watch('docs/**', ['docs:all']);
 });
 
-gulp.task('default', ['watch']);
+gulp.task('connect', function () {
+    connect.server({
+        // root: '/source/circleproject/circle/doc/html/',
+        port:8080,
+        livereload: true
+    });
+});
+
+gulp.task('default', ['connect','watch']);

@@ -12,6 +12,12 @@
       var action = $target.data('action');
       var image = this.image;
 
+      //点击图片空白之外 关闭图片
+      if($target[0] && $target[0].className=="viewer-canvas")
+      {
+          action='mix';
+      }
+
       switch (action) {
         case 'mix':
           if (this.isPlayed) {
@@ -292,13 +298,13 @@
       var action = options.movable ? 'move' : false;
       var touchesLength;
 
-      if (!this.isViewed) {
+      //当前元素是视频，忽略幻灯片播放场景，允许switch
+      if (!this.isViewed && touches && touches[0].target.tagName!="VIDEO") {
         return;
       }
 
       if (touches) {
         touchesLength = touches.length;
-
         if (touchesLength > 1) {
           if (options.zoomable && touchesLength === 2) {
             e = touches[1];
@@ -335,8 +341,8 @@
       var touches = originalEvent && originalEvent.touches;
       var e = event;
       var touchesLength;
-
-      if (!this.isViewed) {
+      //当前元素是视频，忽略幻灯片播放场景，允许switch
+      if (!this.isViewed && touches && touches[0].target.tagName!="VIDEO") {
         return;
       }
 

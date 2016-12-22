@@ -15,7 +15,7 @@
         on(EVENT_WHEEL, $.proxy(this.wheel, this));
 
       this.$canvas.on(EVENT_MOUSEDOWN, $.proxy(this.mousedown, this));
-
+      
       $document.
         on(EVENT_MOUSEMOVE, (this._mousemove = proxy(this.mousemove, this))).
         on(EVENT_MOUSEUP, (this._mouseup = proxy(this.mouseup, this))).

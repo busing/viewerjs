@@ -16,7 +16,6 @@
       this.isVisible = true;
       this.render();
       this.bind();
-
       if ($.isFunction(options.shown)) {
         this.$element.one(EVENT_SHOWN, options.shown);
       }
@@ -80,7 +79,6 @@
     change: function (event) {
       var offsetX = this.endX - this.startX;
       var offsetY = this.endY - this.startY;
-
       switch (this.action) {
 
         // Move the current image
@@ -108,7 +106,6 @@
 
         case 'switch':
           this.action = 'switched';
-
           if (abs(offsetX) > abs(offsetY)) {
             if (offsetX > 1) {
               this.prev();
@@ -130,7 +127,12 @@
     isSwitchable: function () {
       var image = this.image;
       var viewer = this.viewer;
-
+      //视频 不用判断图片被放大到全屏幕的情况
+      if(this.$image[0].tagName=="VIDEO")
+      {
+        return true;
+      }
+      //判断图片是否是全屏状态，如果是不允许
       return (image.left >= 0 && image.top >= 0 && image.width <= viewer.width &&
         image.height <= viewer.height);
     }

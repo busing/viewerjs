@@ -45,6 +45,8 @@
 
       this.$images.each(function (i) {
         var src = this.src;
+        var video = this.attributes["video"]==undefined?"":this.attributes["video"].nodeValue;
+        this.video=video;
         var alt = this.alt || getImageName(src);
         var url = options.url;
 
@@ -65,6 +67,7 @@
               ' data-action="view"' +
               ' data-index="' +  i + '"' +
               ' data-original-url="' +  (url || src) + '"' +
+              ' video-original-url="' +  (video) + '"' +
               ' alt="' +  alt + '"' +
             '>' +
           '</li>'
