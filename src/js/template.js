@@ -1,6 +1,7 @@
   Viewer.TEMPLATE = (
     '<div class="viewer-container">' +
       '<div class="viewer-canvas"></div>' +
+      '<div class="video-tip">asdasd</div>' +
       '<div class="viewer-footer">' +
         '<div class="viewer-title"></div>' +
         '<ul class="viewer-toolbar">' +

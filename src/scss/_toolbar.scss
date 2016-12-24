@@ -12,8 +12,8 @@
     float: left;
     overflow: hidden;
 
-    width: 24px;
-    height: 24px;
+    width: 40px;
+    height: 40px;
 
     @include bg-color($color-black, .5);
     border-radius: 50%;

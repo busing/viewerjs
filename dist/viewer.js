@@ -1092,6 +1092,18 @@
         this.$image = $image = $('<video preload loop controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
         var videoHeight=window.innerHeight-125;
         this.$image.css("height",videoHeight)
+        $image.click(function(){
+          if(this.paused)
+          {
+            this.play();
+            $(".video-tip").delay(0).html("播放").fadeIn().delay(400).hide(0);
+          }
+          else
+          {
+            this.pause();
+            $(".video-tip").delay(0).html("暂停").fadeIn().delay(400).hide(0);
+          }
+        })
       }
       else
       {
@@ -1891,6 +1903,7 @@
   Viewer.TEMPLATE = (
     '<div class="viewer-container">' +
       '<div class="viewer-canvas"></div>' +
+      '<div class="video-tip">asdasd</div>' +
       '<div class="viewer-footer">' +
         '<div class="viewer-title"></div>' +
         '<ul class="viewer-toolbar">' +
