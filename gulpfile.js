@@ -104,7 +104,7 @@ gulp.task('js', ['jshint', 'jscs'], function () {
     .pipe(gulp.dest(scripts.site));
 });
 
-gulp.task('concat', function () {
+gulp.task('concat',['reload'], function () {
   return gulp.src(scripts.list)
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.concat(scripts.name))
@@ -153,7 +153,7 @@ gulp.task('css', ['csslint'], function () {
     .pipe(gulp.dest(styles.site));
 });
 
-gulp.task('sass', function () {
+gulp.task('sass',['reload'], function () {
   return gulp.src(styles.src)
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass())
@@ -224,10 +224,15 @@ gulp.task('watch', function () {
 
 gulp.task('connect', function () {
     connect.server({
-        // root: '/source/circleproject/circle/doc/html/',
+        root: '/Users/taiyuan/git/viewer_taiyuan/',
         port:8080,
         livereload: true
     });
 });
+
+gulp.task('reload', function () {
+    return gulp.src(['demo/'])
+    .pipe(connect.reload());
+})
 
 gulp.task('default', ['connect','watch']);

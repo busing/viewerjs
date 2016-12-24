@@ -2,6 +2,7 @@
 node_modules
 bower_components
 dist/*.map
+demo/*.mp4
 /_*
 
 # Windows image file caches

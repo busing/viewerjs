@@ -102,7 +102,7 @@
       {
         var videoUrl=$img.attr('video-original-url');
         this.$image = $image = $('<video preload loop controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
-        var videoHeight=window.innerHeight-125;
+        var videoHeight=window.innerHeight-145;
         this.$image.css("height",videoHeight)
         $image.click(function(){
           if(this.paused)

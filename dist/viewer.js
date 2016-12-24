@@ -1090,7 +1090,7 @@
       {
         var videoUrl=$img.attr('video-original-url');
         this.$image = $image = $('<video preload loop controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
-        var videoHeight=window.innerHeight-125;
+        var videoHeight=window.innerHeight-145;
         this.$image.css("height",videoHeight)
         $image.click(function(){
           if(this.paused)
@@ -1907,17 +1907,17 @@
       '<div class="viewer-footer">' +
         '<div class="viewer-title"></div>' +
         '<ul class="viewer-toolbar">' +
-          '<li class="viewer-zoom-in" data-action="zoom-in"></li>' +
-          '<li class="viewer-zoom-out" data-action="zoom-out"></li>' +
-          '<li class="viewer-one-to-one" data-action="one-to-one"></li>' +
-          '<li class="viewer-reset" data-action="reset"></li>' +
-          '<li class="viewer-prev" data-action="prev"></li>' +
           '<li class="viewer-play" data-action="play"></li>' +
+          '<li class="viewer-prev" data-action="prev"></li>' +
+          '<li class="viewer-reset" data-action="reset"></li>' +
           '<li class="viewer-next" data-action="next"></li>' +
           '<li class="viewer-rotate-left" data-action="rotate-left"></li>' +
           '<li class="viewer-rotate-right" data-action="rotate-right"></li>' +
-          '<li class="viewer-flip-horizontal" data-action="flip-horizontal"></li>' +
-          '<li class="viewer-flip-vertical" data-action="flip-vertical"></li>' +
+          // '<li class="viewer-zoom-in" data-action="zoom-in"></li>' +
+          // '<li class="viewer-zoom-out" data-action="zoom-out"></li>' +
+          // '<li class="viewer-one-to-one" data-action="one-to-one"></li>' +
+          // '<li class="viewer-flip-horizontal" data-action="flip-horizontal"></li>' +
+          // '<li class="viewer-flip-vertical" data-action="flip-vertical"></li>' +
         '</ul>' +
         '<div class="viewer-navbar">' +
           '<ul class="viewer-list"></ul>' +

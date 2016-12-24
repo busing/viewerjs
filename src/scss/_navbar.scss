@@ -11,7 +11,7 @@
   box-sizing: content-box;
   overflow: hidden;
 
-  height: 50px;
+  height: 60px;
   margin: 0;
   padding: 1px 0;
 
@@ -19,8 +19,8 @@
     float: left;
     overflow: hidden;
 
-    width: 30px;
-    height: 50px;
+    width: 38px;
+    height: 60px;
 
     @include text-hide();
 
