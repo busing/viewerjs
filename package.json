@@ -1,11 +1,11 @@
 {
-  "name": "imageviewer",
+  "name": "imageviewer_terrydr",
   "description": "A simple jQuery image viewing plugin.",
   "version": "0.5.1",
   "main": "dist/viewer.js",
   "license": "MIT",
-  "repository": "fengyuanchen/viewerjs",
-  "homepage": "https://fengyuanchen.github.io/viewerjs",
+  "repository": "https://github.com/busing/viewerjs.git",
+  "homepage": "https://github.com/busing/viewerjs.git",
   "author": {
     "name": "Fengyuan Chen",
     "url": "http://chenfengyuan.com"
