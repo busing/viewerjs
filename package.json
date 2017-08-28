@@ -1,7 +1,7 @@
 {
   "name": "imageviewer_terrydr",
   "description": "A simple jQuery image viewing plugin.",
-  "version": "0.5.1",
+  "version": "0.5.5",
   "main": "dist/viewer.js",
   "license": "MIT",
   "repository": "https://github.com/busing/viewerjs.git",

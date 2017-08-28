@@ -1,11 +1,11 @@
 /*!
- * Viewer v@VERSION
+ * Viewer v0.5.1
  * https://github.com/fengyuanchen/viewer
  *
- * Copyright (c) 2015-@YEAR Fengyuan Chen
+ * Copyright (c) 2015-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: @DATE
+ * Date: 2017-08-28T09:39:18.106Z
  */
 
 (function (factory) {
@@ -1089,7 +1089,7 @@
       if($img.attr('video-original-url')!="")
       {
         var videoUrl=$img.attr('video-original-url');
-        this.$image = $image = $('<video preload loop controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
+        this.$image = $image = $('<video preload autoplay controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
         
         var buttom_padding;
         buttom_padding=window.innerWidth<=767?120:155;
@@ -1971,5 +1971,3 @@
   };
 
 });
-
-//# sourceMappingURL=viewer.js.map

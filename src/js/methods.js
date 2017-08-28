@@ -101,7 +101,7 @@
       if($img.attr('video-original-url')!="")
       {
         var videoUrl=$img.attr('video-original-url');
-        this.$image = $image = $('<video preload loop controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
+        this.$image = $image = $('<video preload autoplay controls volume poster="'+url+'" src="' + videoUrl + '" alt="' + alt + '">');
         
         var buttom_padding;
         buttom_padding=window.innerWidth<=767?120:155;
